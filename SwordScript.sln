@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwordScript", "SwordScript\SwordScript.csproj", "{91C43B82-61E8-4E2F-9CF3-2CD1C7E30890}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwordScript", "SwordScript\SwordScript.csproj", "{2629AFF0-645C-4373-88D5-80BF4BA9A821}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{98B2CA5D-55C0-4C20-8F63-B19A4CD53E7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{91C43B82-61E8-4E2F-9CF3-2CD1C7E30890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91C43B82-61E8-4E2F-9CF3-2CD1C7E30890}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91C43B82-61E8-4E2F-9CF3-2CD1C7E30890}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91C43B82-61E8-4E2F-9CF3-2CD1C7E30890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2629AFF0-645C-4373-88D5-80BF4BA9A821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2629AFF0-645C-4373-88D5-80BF4BA9A821}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2629AFF0-645C-4373-88D5-80BF4BA9A821}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2629AFF0-645C-4373-88D5-80BF4BA9A821}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98B2CA5D-55C0-4C20-8F63-B19A4CD53E7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98B2CA5D-55C0-4C20-8F63-B19A4CD53E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98B2CA5D-55C0-4C20-8F63-B19A4CD53E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98B2CA5D-55C0-4C20-8F63-B19A4CD53E7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
