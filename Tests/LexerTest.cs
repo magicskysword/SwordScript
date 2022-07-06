@@ -80,5 +80,6 @@ public class LexerText
         Assert.AreEqual(true, Lexer.Boolean.Parse(" true //false "));
         Assert.Catch<ParseException>(() => Lexer.Boolean.Parse(" //true "));
         Assert.AreEqual("/*abc*/", Lexer.String.Parse(@" /*""abc""*/ ""/*abc*/"" "));
+        Assert.AreEqual("abc", Lexer.Identifier.Parse(" /* */ /* */ abc //abc "));
     }
 }

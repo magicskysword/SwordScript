@@ -10,13 +10,13 @@ namespace SwordScript;
 /// </summary>
 public static class Lexer
 {
-    public static readonly CommentParser Comment = new CommentParser();
+    
 
     public static Parser<T> SuperToken<T>(this Parser<T> parser)
     {
-        return from leftComment in Comment.MultiLineComment.Token().Optional()
+        return from leftComment in Comment.AnyComment.Token().Many()
             from token in parser.Token()
-            from rightComment in Comment.AnyComment.Token().Optional()
+            from rightComment in Comment.AnyComment.Token().Many()
             select token;
     }
     
@@ -54,4 +54,5 @@ public static class Lexer
     
     public static readonly Parser<object> Null = Parse.String(Words.NULL).Return<IEnumerable<char>,object>(null).SuperToken();
 
+    public static readonly CommentParser Comment = new CommentParser();
 }
