@@ -10,8 +10,12 @@ namespace SwordScript;
 /// </summary>
 public static class Lexer
 {
-    
-
+    /// <summary>
+    /// 去除空格与注释
+    /// </summary>
+    /// <param name="parser"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
     public static Parser<T> SuperToken<T>(this Parser<T> parser)
     {
         return from leftComment in Comment.AnyComment.Token().Many()
