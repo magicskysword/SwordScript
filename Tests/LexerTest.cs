@@ -82,4 +82,5 @@ public class LexerText
         Assert.AreEqual("/*abc*/", Lexer.String.Parse(@" /*""abc""*/ ""/*abc*/"" "));
         Assert.AreEqual("abc", Lexer.Identifier.Parse(" /* */ /* */ abc //abc "));
     }
+    
 }

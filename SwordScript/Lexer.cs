@@ -18,9 +18,9 @@ public static class Lexer
     /// <returns></returns>
     public static Parser<T> SuperToken<T>(this Parser<T> parser)
     {
-        return from leftComment in Comment.AnyComment.Token().Many()
+        return from leftComment in Parse.Ref(()=>Comment.AnyComment).Token().Many()
             from token in parser.Token()
-            from rightComment in Comment.AnyComment.Token().Many()
+            from rightComment in Parse.Ref(()=>Comment.AnyComment).Token().Many()
             select token;
     }
     
@@ -59,4 +59,31 @@ public static class Lexer
     public static readonly Parser<object> Null = Parse.String(Words.NULL).Return<IEnumerable<char>,object>(null).SuperToken();
 
     public static readonly CommentParser Comment = new CommentParser();
+
+    /// <summary>
+    /// 返回下个字符不为Unicode字符的字符符号解析器
+    /// </summary>
+    /// <param name="symbol"></param>
+    /// <returns></returns>
+    public static Parser<string> LetterSymbol(string symbol)
+    {
+        return (from symbolStr in Parse.String(symbol).Text()
+            from nextChar in Parse.Regex(@"\p{L}").Preview()
+            where nextChar.IsEmpty
+            select symbolStr).SuperToken();
+    }
+    
+    /// <summary>
+    /// 返回普通的标点符号解析器
+    /// </summary>
+    /// <param name="symbol"></param>
+    /// <returns></returns>
+    public static Parser<string> PunctuationSymbol(string symbol)
+    {
+        return (from symbolStr in Parse.String(symbol).Text() select symbolStr).SuperToken();
+    }
+    
+    public static readonly Parser<string> Negate = PunctuationSymbol("-");
+    public static readonly Parser<string> Not = LetterSymbol("not");
+    public static readonly Parser<string> Power = PunctuationSymbol("^");
 }
