@@ -1,6 +1,6 @@
 ﻿namespace SwordScript;
 
-public abstract class ASTLeaf : ASTBase
+public abstract class ASTLeaf : ASTNode
 {
     
 }
