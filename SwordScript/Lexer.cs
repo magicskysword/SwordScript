@@ -1,4 +1,7 @@
-﻿using Sprache;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Sprache;
 
 namespace SwordScript;
 
@@ -10,7 +13,8 @@ public static class Lexer
     /// <summary>
     /// 标识符
     /// </summary>
-    public static readonly Parser<string> Identifier = Parse.Regex(@"[_\p{L}][0-9_\p{L}]*").Token();
+    public static readonly Parser<string> Identifier = Parse.Regex(@"[_\p{L}][0-9_\p{L}]*")
+        .Where(t => !Words.ALL_RESERVED_WORDS.Contains(t)).Token();
     
     /// <summary>
     /// 长整形
@@ -31,4 +35,12 @@ public static class Lexer
                 .Replace(@"\""", @"""")
                 .Replace(@"\\", @"\")
                 .Replace(@"\n", "\n")).Token();
+    
+    public static readonly Parser<bool> Boolean = Parse.String(Words.BOOLEAN_TRUE)
+        .Or(Parse.String(Words.BOOLEAN_FALSE))
+        .Text()
+        .Select(s => s == Words.BOOLEAN_TRUE)
+        .Token();
+    
+    public static readonly Parser<object> Null = Parse.String(Words.NULL).Return<IEnumerable<char>,object>(null).Token();
 }

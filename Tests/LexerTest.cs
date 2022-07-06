@@ -17,6 +17,8 @@ public class LexerText
         Assert.Catch<ParseException>(() => Lexer.Identifier.Parse(" "));
         Assert.Catch<ParseException>(() => Lexer.Identifier.Parse(" 123 "));
         Assert.Catch<ParseException>(() => Lexer.Identifier.Parse(" 123abc "));
+        Assert.Catch<ParseException>(() => Lexer.Identifier.Parse(" true "));
+        Assert.Catch<ParseException>(() => Lexer.Identifier.Parse(" false "));
     }
 
     [Test]
@@ -50,5 +52,20 @@ public class LexerText
         Assert.AreEqual("abc\ndef", Lexer.String.Parse(@" ""abc\ndef"" "));
         Assert.AreEqual("abc\ndef\n", Lexer.String.Parse(@" ""abc\ndef\n"" "));
         Assert.AreEqual("你好，世界", Lexer.String.Parse(@" ""你好，世界"" "));
+    }
+
+    [Test]
+    public void Boolean()
+    {
+        Assert.AreEqual(true, Lexer.Boolean.Parse(" true "));
+        Assert.AreEqual(false, Lexer.Boolean.Parse(" false "));
+        Assert.Catch<ParseException>(() => Lexer.Boolean.Parse(" "));
+    }
+
+    [Test]
+    public void Null()
+    {
+        Assert.AreEqual(null, Lexer.Null.Parse(" null "));
+        Assert.Catch<ParseException>(() => Lexer.Null.Parse(" "));
     }
 }
