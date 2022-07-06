@@ -7,9 +7,9 @@ public abstract class ASTBinaryExpr : ASTList
 
     }
 
-    public ASTNode Right => this[0];
-
-    public ASTNode Left => this[1];
+    public ASTNode Left => this[0];
+    
+    public ASTNode Right => this[1];
 }
 
 public class ASTBinaryExprPower : ASTBinaryExpr

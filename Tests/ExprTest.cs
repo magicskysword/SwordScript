@@ -25,4 +25,12 @@ public class ExprTest
         Assert.AreEqual("not false", ScriptParser.Expr2.Parse(" not false ").ToString());
         Assert.AreEqual("nottrue", ScriptParser.Expr2.Parse(" nottrue ").ToString());
     }
+    
+    [Test]
+    public void Expr3Test()
+    {
+        Assert.AreEqual("(1 ^ 4)", ScriptParser.Expr3.Parse(" 1 ^ 4 ").ToString());
+        Assert.AreEqual("(5 ^ 0.7)", ScriptParser.Expr3.Parse(" 5 ^ .7 ").ToString());
+        Assert.AreEqual("(0.1 ^ 0.1)", ScriptParser.Expr3.Parse(" 0.1 ^ .7 ").ToString());
+    }
 }

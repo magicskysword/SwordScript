@@ -10,6 +10,8 @@ namespace SwordScript;
 /// </summary>
 public static class Lexer
 {
+    public static readonly CommentParser Comment = new CommentParser();
+    
     /// <summary>
     /// 去除空格与注释
     /// </summary>
@@ -18,9 +20,9 @@ public static class Lexer
     /// <returns></returns>
     public static Parser<T> SuperToken<T>(this Parser<T> parser)
     {
-        return from leftComment in Parse.Ref(()=>Comment.AnyComment).Token().Many()
+        return from leftComment in Comment.AnyComment.Token().Many()
             from token in parser.Token()
-            from rightComment in Parse.Ref(()=>Comment.AnyComment).Token().Many()
+            from rightComment in Comment.AnyComment.Token().Many()
             select token;
     }
     
@@ -57,8 +59,6 @@ public static class Lexer
         .SuperToken();
     
     public static readonly Parser<object> Null = Parse.String(Words.NULL).Return<IEnumerable<char>,object>(null).SuperToken();
-
-    public static readonly CommentParser Comment = new CommentParser();
 
     /// <summary>
     /// 返回下个字符不为Unicode字符的字符符号解析器
