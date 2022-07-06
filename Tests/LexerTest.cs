@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using Sprache;
 using SwordScript;
@@ -67,5 +68,17 @@ public class LexerText
     {
         Assert.AreEqual(null, Lexer.Null.Parse(" null "));
         Assert.Catch<ParseException>(() => Lexer.Null.Parse(" "));
+    }
+
+    [Test]
+    public void Comment()
+    {
+        Assert.AreEqual("abc", Lexer.Identifier.Parse(" abc //abc "));
+        Assert.AreEqual(123L, Lexer.LongInteger.Parse(" 123 //123 "));
+        Assert.AreEqual(.5, Lexer.DoubleFloat.Parse(" .5 /* .6 */"), 0.00001);
+        Assert.AreEqual("abc", Lexer.String.Parse(@" /*""abc""*/ ""abc"" "));
+        Assert.AreEqual(true, Lexer.Boolean.Parse(" true //false "));
+        Assert.Catch<ParseException>(() => Lexer.Boolean.Parse(" //true "));
+        Assert.AreEqual("/*abc*/", Lexer.String.Parse(@" /*""abc""*/ ""/*abc*/"" "));
     }
 }
