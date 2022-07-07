@@ -68,7 +68,7 @@ public static class Lexer
     public static Parser<string> LetterSymbol(string symbol)
     {
         return (from symbolStr in Parse.String(symbol).Text()
-            from nextChar in Parse.Regex(@"\p{L}").Preview()
+            from nextChar in Parse.Regex(@"[0-9_\p{L}]").Preview()
             where nextChar.IsEmpty
             select symbolStr).SuperToken();
     }
@@ -86,4 +86,17 @@ public static class Lexer
     public static readonly Parser<string> Negate = PunctuationSymbol("-");
     public static readonly Parser<string> Not = LetterSymbol("not");
     public static readonly Parser<string> Power = PunctuationSymbol("^");
+    public static readonly Parser<string> Multiply = PunctuationSymbol("*");
+    public static readonly Parser<string> Divide = PunctuationSymbol("/");
+    public static readonly Parser<string> Modulo = PunctuationSymbol("%");
+    public static readonly Parser<string> Plus = PunctuationSymbol("+");
+    public static readonly Parser<string> Minus = PunctuationSymbol("-");
+    public static readonly Parser<string> GreaterThan = PunctuationSymbol(">");
+    public static readonly Parser<string> GreaterThanOrEqual = PunctuationSymbol(">=");
+    public static readonly Parser<string> LessThan = PunctuationSymbol("<");
+    public static readonly Parser<string> LessThanOrEqual = PunctuationSymbol("<=");
+    public static readonly Parser<string> Equal = PunctuationSymbol("==");
+    public static readonly Parser<string> NotEqual = PunctuationSymbol("!=");
+    public static readonly Parser<string> And = LetterSymbol("and");
+    public static readonly Parser<string> Or = LetterSymbol("or");
 }
