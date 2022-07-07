@@ -85,7 +85,7 @@ public class ExprTest
     }
     
     [Test]
-    public void Expression()
+    public void ExpressionTest()
     {
         Assert.AreEqual("((1 + 2) * (3 + 4))", ScriptParser.Expr.Parse(" (1 + 2) * (3 + 4)  ").ToString());
         Assert.AreEqual("(a >= ((3 * (b ^ 5)) - 8))", ScriptParser.Expr.Parse(" a >= 3 * b ^ 5 - 8 ").ToString());
