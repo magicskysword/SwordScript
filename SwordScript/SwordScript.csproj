@@ -43,7 +43,6 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="ASTExprNot.cs" />
         <Compile Include="ASTNode.cs" />
         <Compile Include="ASTIdentifier.cs" />
         <Compile Include="ASTLeaf.cs" />
@@ -51,9 +50,11 @@
         <Compile Include="ASTLiteral.cs" />
         <Compile Include="ASTBinaryExpr.cs" />
         <Compile Include="ASTUnaryExpr.cs" />
+        <Compile Include="EvaluateException.cs" />
         <Compile Include="ScriptParser.cs" />
         <Compile Include="Lexer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="SwordEnvironment.cs" />
         <Compile Include="Words.cs" />
     </ItemGroup>
     <ItemGroup>

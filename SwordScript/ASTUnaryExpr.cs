@@ -20,6 +20,22 @@ public class ASTUnaryExprNegative : ASTUnaryExpr
     {
         return $"-{Expr}";
     }
+
+    public override object Evaluate(SwordEnvironment env)
+    {
+        var value = Expr.Evaluate(env);
+        if(value is long l)
+        {
+            return -l;
+        }
+
+        if(value is double d)
+        {
+            return -d;
+        }
+
+        throw new EvaluateException($"Cannot negate {value}, need a long or double value.");
+    }
 }
 
 public class ASTUnaryExprNot : ASTUnaryExpr
@@ -31,5 +47,16 @@ public class ASTUnaryExprNot : ASTUnaryExpr
     public override string ToString()
     {
         return $"not {Expr}";
+    }
+
+    public override object Evaluate(SwordEnvironment env)
+    {
+        var value = Expr.Evaluate(env);
+        if(value is bool b)
+        {
+            return !b;
+        }
+
+        throw new EvaluateException($"Cannot 'not' {value}, need a boolean value.");
     }
 }

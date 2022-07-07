@@ -92,4 +92,17 @@ public class ExprTest
         Assert.AreEqual("((a and (b1 == b2)) or (((9 * 9) == c) and d))", ScriptParser.Expr.Parse(" a and b1 == b2 or 9*9 == c and d ").ToString());
         Assert.AreEqual("((a and (b1 == (b2 or ((9 * 9) == c)))) and d)", ScriptParser.Expr.Parse(" a and b1 == (b2 or 9*9 == c) and d ").ToString());
     }
+    
+    [Test]
+    public void ExpressionEvaluateTest()
+    {
+        Assert.AreEqual(1, ScriptParser.Expr.Parse(" 1 ").Evaluate(null));
+        Assert.AreEqual(3, ScriptParser.Expr.Parse(" 1 + 2 ").Evaluate(null));
+        Assert.AreEqual(3, ScriptParser.Expr.Parse(" 1 + 2 * 3 - 4").Evaluate(null));
+        Assert.AreEqual(false, ScriptParser.Expr.Parse(" not true ").Evaluate(null));
+        Assert.AreEqual(true, ScriptParser.Expr.Parse(" 1 + 1 == 2 and 2 + 2 == 4 ").Evaluate(null));
+        Assert.AreEqual("abc", ScriptParser.Expr.Parse(" \"ab\" + \"c\" ").Evaluate(null));
+        Assert.AreEqual(true, ScriptParser.Expr.Parse(" \"Hello \"+\"World\" == \"Hello World\" ").Evaluate(null));
+        Assert.AreEqual(2.0, (double)ScriptParser.Expr.Parse(" 4 ^ 0.5 ").Evaluate(null), 0.00001);
+    }
 }

@@ -84,7 +84,7 @@ public static class Lexer
     }
     
     public static readonly Parser<string> Negate = PunctuationSymbol("-");
-    public static readonly Parser<string> Not = LetterSymbol("not");
+    public static readonly Parser<string> Not = LetterSymbol(Words.NOT);
     public static readonly Parser<string> Power = PunctuationSymbol("^");
     public static readonly Parser<string> Multiply = PunctuationSymbol("*");
     public static readonly Parser<string> Divide = PunctuationSymbol("/");
@@ -97,6 +97,6 @@ public static class Lexer
     public static readonly Parser<string> LessThanOrEqual = PunctuationSymbol("<=");
     public static readonly Parser<string> Equal = PunctuationSymbol("==");
     public static readonly Parser<string> NotEqual = PunctuationSymbol("!=");
-    public static readonly Parser<string> And = LetterSymbol("and");
-    public static readonly Parser<string> Or = LetterSymbol("or");
+    public static readonly Parser<string> And = LetterSymbol(Words.AND);
+    public static readonly Parser<string> Or = LetterSymbol(Words.OR);
 }

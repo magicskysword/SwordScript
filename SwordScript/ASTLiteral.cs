@@ -20,6 +20,11 @@ public class ASTLongIntegerLiteral : ASTLiteral
     {
         return Value.ToString();
     }
+
+    public override object Evaluate(SwordEnvironment env)
+    {
+        return Value;
+    }
 }
 
 public class ASTDoubleFloatLiteral : ASTLiteral
@@ -34,6 +39,11 @@ public class ASTDoubleFloatLiteral : ASTLiteral
     public override string ToString()
     {
         return Value.ToString(CultureInfo.InvariantCulture);
+    }
+    
+    public override object Evaluate(SwordEnvironment env)
+    {
+        return Value;
     }
 }
 
@@ -50,6 +60,11 @@ public class ASTStringLiteral : ASTLiteral
     {
         return "\"" + Value + "\"";
     }
+    
+    public override object Evaluate(SwordEnvironment env)
+    {
+        return Value;
+    }
 }
 
 public class ASTBooleanLiteral : ASTLiteral
@@ -65,6 +80,11 @@ public class ASTBooleanLiteral : ASTLiteral
     {
         return Value.ToString().ToLower();
     }
+    
+    public override object Evaluate(SwordEnvironment env)
+    {
+        return Value;
+    }
 }
 
 public class ASTNullLiteral : ASTLiteral
@@ -76,5 +96,10 @@ public class ASTNullLiteral : ASTLiteral
     public override string ToString()
     {
         return "null";
+    }
+    
+    public override object Evaluate(SwordEnvironment env)
+    {
+        return null;
     }
 }
