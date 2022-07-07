@@ -499,32 +499,13 @@ public class ASTBinaryExprEqual : ASTBinaryExpr
                 return b1 == b2;
             }
         }
-        
-        if(left is long l1)
+
+        if (left is not null && right is not null)
         {
-            if(right is long l2)
-            {
-                return l1 == l2;
-            }
-            if (right is double d2)
-            {
-                return l1 == d2;
-            }
+            return left.Equals(right);
         }
-        
-        if (left is double d1)
-        {
-            if(right is long l2)
-            {
-                return d1 == l2;
-            }
-            if (right is double d2)
-            {
-                return d1 == d2;
-            }
-        }
-        
-        return left.Equals(right);
+
+        return left == right;
     }
 }
 
@@ -553,31 +534,12 @@ public class ASTBinaryExprNotEqual : ASTBinaryExpr
             }
         }
         
-        if(left is long l1)
+        if (left is not null && right is not null)
         {
-            if(right is long l2)
-            {
-                return l1 != l2;
-            }
-            if (right is double d2)
-            {
-                return l1 != d2;
-            }
+            return !left.Equals(right);
         }
         
-        if (left is double d1)
-        {
-            if(right is long l2)
-            {
-                return d1 != l2;
-            }
-            if (right is double d2)
-            {
-                return d1 != d2;
-            }
-        }
-        
-        return !left.Equals(right);
+        return left != right;
     }
 }
 
