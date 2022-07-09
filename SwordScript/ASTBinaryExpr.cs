@@ -499,6 +499,22 @@ public class ASTBinaryExprEqual : ASTBinaryExpr
                 return b1 == b2;
             }
         }
+        
+        if(left is long l1)
+        {
+            if (right is double d2)
+            {
+                return l1 == d2;
+            }
+        }
+        
+        if(left is double d1)
+        {
+            if (right is long l2)
+            {
+                return d1 == l2;
+            }
+        }
 
         if (left is not null && right is not null)
         {
@@ -531,6 +547,22 @@ public class ASTBinaryExprNotEqual : ASTBinaryExpr
             if (right is bool b2)
             {
                 return b1 != b2;
+            }
+        }
+        
+        if(left is long l1)
+        {
+            if (right is double d2)
+            {
+                return l1 != d2;
+            }
+        }
+        
+        if(left is double d1)
+        {
+            if (right is long l2)
+            {
+                return d1 != l2;
             }
         }
         
@@ -598,5 +630,25 @@ public class ASTBinaryExprOr : ASTBinaryExpr
         }
         
         throw new EvaluateException($"Invalid 'or' operation, cannot 'or' '{left.GetType()}' and '{right.GetType()}'");
+    }
+}
+
+public class ASTBinaryExprAssignment : ASTBinaryExpr
+{
+    public ASTBinaryExprAssignment(ASTNode left, ASTNode right) : base(left, right)
+    {
+    }
+    
+    public override string ToString()
+    {
+        return $"{Left} = {Right};";
+    }
+
+    public override object Evaluate(SwordEnvironment env)
+    {
+        string variableName = ((ASTIdentifier)Left).Name;
+        env.SetVariable(variableName, Right.Evaluate(env));
+        
+        return null;
     }
 }

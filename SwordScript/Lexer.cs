@@ -83,6 +83,9 @@ public static class Lexer
         return (from symbolStr in Parse.String(symbol).Text() select symbolStr).SuperToken();
     }
     
+    public static readonly Parser<string> LeftBracket = PunctuationSymbol("(");
+    public static readonly Parser<string> RightBracket = PunctuationSymbol(")");
+    
     public static readonly Parser<string> Negate = PunctuationSymbol("-");
     public static readonly Parser<string> Not = LetterSymbol(Words.NOT);
     public static readonly Parser<string> Power = PunctuationSymbol("^");
@@ -99,4 +102,7 @@ public static class Lexer
     public static readonly Parser<string> NotEqual = PunctuationSymbol("!=");
     public static readonly Parser<string> And = LetterSymbol(Words.AND);
     public static readonly Parser<string> Or = LetterSymbol(Words.OR);
+    
+    public static readonly Parser<string> Assign = PunctuationSymbol("=");
+    public static readonly Parser<string> Semicolon = PunctuationSymbol(";");
 }

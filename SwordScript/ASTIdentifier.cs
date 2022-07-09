@@ -19,6 +19,6 @@ public class ASTIdentifier : ASTLeaf
 
     public override object Evaluate(SwordEnvironment env)
     {
-        throw new System.NotImplementedException();
+        return env.GetVariable(Name);
     }
 }

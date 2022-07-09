@@ -19,28 +19,25 @@ public static class ScriptParser
     public static readonly Parser<ASTNode> Expr = Parse.Ref(() => Expr9);
 
     public static readonly Parser<ASTNode> Primary = (
-            from left in Parse.Char('(').SuperToken()
+            from left in Lexer.LeftBracket
             from expr in Parse.Ref(() => Expr)
-            from right in Parse.Char(')').SuperToken()
+            from right in Lexer.RightBracket
             select expr)
         .Or(Literal)
-        .Or(Identifier)
-        .SuperToken();
+        .Or(Identifier);
 
     public static readonly Parser<ASTNode> Expr2 =(
             from symbol in Lexer.Negate.Or(Lexer.Not)
             from expr in Primary
             select (ASTNode)(symbol == "-" ? new ASTUnaryExprNegative(expr) : new ASTUnaryExprNot(expr)))
-        .Or(Primary)
-        .SuperToken();
+        .Or(Primary);
     
     public static readonly Parser<ASTNode> Expr3 =(
             from left in Expr2
             from symbol in Lexer.Power
             from right in Expr3
             select new ASTBinaryExprPower(left, right))
-        .Or(Expr2)
-        .SuperToken();
+        .Or(Expr2);
 
     public delegate ASTNode CreateNode(ASTNode left,string op,ASTNode right);
 
@@ -61,13 +58,13 @@ public static class ScriptParser
             from getSymbol in symbol
             from right in leftExpr
             select new Tuple<string, ASTNode>(getSymbol, right)
-        ).SuperToken();
+        );
         
         Parser<ASTNode> operatorExpr = (
                 from left in leftExpr
                 from rights in innerOperatorExpr.Many()
                 select CreateNode(left, rights)
-            ).SuperToken();
+            );
         
         return operatorExpr;
     }
@@ -141,4 +138,11 @@ public static class ScriptParser
     
     public static readonly Parser<ASTNode> Expr9 = LeftOperator(Expr8, Lexer.Or,
         (left, op, right) => new ASTBinaryExprOr(left, right));
+
+    public static readonly Parser<ASTNode> Assignment =
+        from left in Identifier
+        from assign in Lexer.Assign
+        from right in Expr
+        from _ in Lexer.Semicolon.Optional()
+        select new ASTBinaryExprAssignment(left, right);
 }
