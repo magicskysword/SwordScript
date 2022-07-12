@@ -43,13 +43,23 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ASTAssignStatement.cs" />
+        <Compile Include="ASTBlock.cs" />
+        <Compile Include="ASTBreakStatement.cs" />
+        <Compile Include="ASTContinueStatement.cs" />
+        <Compile Include="ASTDoWhileStatement.cs" />
+        <Compile Include="ASTIfStatement.cs" />
         <Compile Include="ASTNode.cs" />
         <Compile Include="ASTIdentifier.cs" />
         <Compile Include="ASTLeaf.cs" />
         <Compile Include="ASTList.cs" />
         <Compile Include="ASTLiteral.cs" />
         <Compile Include="ASTBinaryExpr.cs" />
+        <Compile Include="ASTStatement.cs" />
         <Compile Include="ASTUnaryExpr.cs" />
+        <Compile Include="ASTWhileStatement.cs" />
+        <Compile Include="BreakException.cs" />
+        <Compile Include="ContinueException.cs" />
         <Compile Include="EvaluateException.cs" />
         <Compile Include="ScriptParser.cs" />
         <Compile Include="Lexer.cs" />

@@ -85,7 +85,7 @@ public static class Lexer
     
     public static readonly Parser<string> LeftBracket = PunctuationSymbol("(");
     public static readonly Parser<string> RightBracket = PunctuationSymbol(")");
-    
+
     public static readonly Parser<string> Negate = PunctuationSymbol("-");
     public static readonly Parser<string> Not = LetterSymbol(Words.NOT);
     public static readonly Parser<string> Power = PunctuationSymbol("^");
@@ -105,4 +105,14 @@ public static class Lexer
     
     public static readonly Parser<string> Assign = PunctuationSymbol("=");
     public static readonly Parser<string> Semicolon = PunctuationSymbol(";");
+    
+    public static readonly Parser<string> If = LetterSymbol(Words.IF);
+    public static readonly Parser<string> Else = LetterSymbol(Words.ELSE);
+    public static readonly Parser<string> Do = LetterSymbol(Words.DO);
+    public static readonly Parser<string> While = LetterSymbol(Words.WHILE);
+    public static readonly Parser<string> Break = LetterSymbol(Words.BREAK);
+    public static readonly Parser<string> Continue = LetterSymbol(Words.CONTINUE);
+    
+    public static readonly Parser<string> LeftBrace = PunctuationSymbol("{");
+    public static readonly Parser<string> RightBrace = PunctuationSymbol("}");
 }

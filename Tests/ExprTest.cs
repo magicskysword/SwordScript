@@ -108,32 +108,4 @@ public class ExprTest
         Assert.AreEqual(false , ScriptParser.Expr.Parse(" null != null ").Evaluate(null));
         Assert.AreEqual(true , ScriptParser.Expr.Parse(" 0 == 0.0 ").Evaluate(null));
     }
-
-    [Test]
-    public void AssignmentTest()
-    {
-        Assert.AreEqual("a = 1;", ScriptParser.Assignment.Parse(" a = 1 ").ToString());
-        Assert.AreEqual("a = (1 + 1);", ScriptParser.Assignment.Parse(" a = 1 + 1; ").ToString());
-        Assert.AreEqual("a = (2 == b);", ScriptParser.Assignment.Parse(" a = 2 == b ").ToString());
-        Assert.Catch<ParseException>(() => ScriptParser.Assignment.Parse(" a + 1 = 1 "));
-    }
-    
-    [Test]
-    public void AssignmentEvaluateTest()
-    {
-        var env = new SwordEnvironment();
-        ScriptParser.Assignment.Parse(" a = 1 ").Evaluate(env);
-        Assert.AreEqual(1, env.GetVariable("a"));
-        
-        ScriptParser.Assignment.Parse(" a = 1 + 1 ").Evaluate(env);
-        Assert.AreEqual(2, env.GetVariable("a"));
-        
-        Assert.AreEqual(null, env.GetVariable("b"));
-        
-        ScriptParser.Assignment.Parse(" b = 2 ").Evaluate(env);
-        Assert.AreEqual(2, env.GetVariable("b"));
-        
-        ScriptParser.Assignment.Parse(" c = a == b ").Evaluate(env);
-        Assert.AreEqual(true, env.GetVariable("c"));
-    }
 }

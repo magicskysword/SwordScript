@@ -9,7 +9,12 @@ public static class Words
         NULL,
         NOT,
         AND,
-        OR
+        OR,
+        IF,
+        ELSE,
+        WHILE,
+        BREAK,
+        CONTINUE,
     };
     
     public const string BOOLEAN_TRUE = "true";
@@ -18,4 +23,10 @@ public static class Words
     public const string NOT = "not";
     public const string AND = "and";
     public const string OR = "or";
+    public const string IF = "if";
+    public const string ELSE = "else";
+    public const string DO = "do";
+    public const string WHILE = "while";
+    public const string BREAK = "break";
+    public const string CONTINUE = "continue";
 }

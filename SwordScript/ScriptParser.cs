@@ -41,6 +41,13 @@ public static class ScriptParser
 
     public delegate ASTNode CreateNode(ASTNode left,string op,ASTNode right);
 
+    /// <summary>
+    /// 左递归符号解析器生成
+    /// </summary>
+    /// <param name="leftExpr"></param>
+    /// <param name="symbol"></param>
+    /// <param name="apply"></param>
+    /// <returns></returns>
     public static Parser<ASTNode> LeftOperator(Parser<ASTNode> leftExpr, Parser<string> symbol,
         CreateNode apply)
     {
@@ -139,10 +146,68 @@ public static class ScriptParser
     public static readonly Parser<ASTNode> Expr9 = LeftOperator(Expr8, Lexer.Or,
         (left, op, right) => new ASTBinaryExprOr(left, right));
 
-    public static readonly Parser<ASTNode> Assignment =
+    public static readonly Parser<ASTStatement> Statement = Parse.Ref(() => Block)
+        .Or(Parse.Ref(() => AssignStatement))
+        .Or(Parse.Ref(() => IfStatement))
+        .Or(Parse.Ref(() => WhileStatement))
+        .Or(Parse.Ref(() => DoWhileStatement))
+        .Or(Parse.Ref(() => ContinueStatement))
+        .Or(Parse.Ref(() => BreakStatement));
+
+    public static readonly Parser<ASTStatement> Block = 
+        from left in Lexer.LeftBrace
+        from statements in Statement.Many()
+        from right in Lexer.RightBrace
+        select new ASTBlock(statements);
+
+    public static readonly Parser<ASTStatement> AssignStatement =
         from left in Identifier
         from assign in Lexer.Assign
         from right in Expr
         from _ in Lexer.Semicolon.Optional()
-        select new ASTBinaryExprAssignment(left, right);
+        select new ASTAssignStatement(left, right);
+    
+    public static readonly Parser<ASTNode> Condition =
+        from left in Lexer.LeftBracket
+        from condition in Expr
+        from right in Lexer.RightBracket
+        select condition;
+    
+    public static readonly Parser<ASTStatement> ElseStatement =
+        from left in Lexer.Else
+        from statement in Statement
+        select statement;
+
+    public static readonly Parser<ASTStatement> IfStatement =
+        from keywordIf in Lexer.If
+        from condition in Condition
+        from statement in Statement
+        from elseStatement in ElseStatement.Optional()
+        select elseStatement.IsEmpty 
+            ? new ASTIfStatement(condition, statement) 
+            : new ASTIfStatement(condition, statement, elseStatement.Get());
+    
+    public static readonly Parser<ASTStatement> BreakStatement =
+        from keywordBreak in Lexer.Break
+        from _ in Lexer.Semicolon.Optional()
+        select new ASTBreakStatement();
+    
+    public static readonly Parser<ASTStatement> ContinueStatement =
+        from keywordContinue in Lexer.Continue
+        from _ in Lexer.Semicolon.Optional()
+        select new ASTContinueStatement();
+
+    public static readonly Parser<ASTStatement> WhileStatement =
+        from keywordWhile in Lexer.While
+        from condition in Condition
+        from statement in Statement
+        select new ASTWhileStatement(condition, statement);
+    
+    public static readonly Parser<ASTStatement> DoWhileStatement =
+        from keywordDo in Lexer.Do
+        from statement in Statement
+        from keywordWhile in Lexer.While
+        from condition in Condition
+        select new ASTDoWhileStatement(condition, statement);
+        
 }

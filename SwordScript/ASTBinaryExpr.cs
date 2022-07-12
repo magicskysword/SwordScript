@@ -632,23 +632,3 @@ public class ASTBinaryExprOr : ASTBinaryExpr
         throw new EvaluateException($"Invalid 'or' operation, cannot 'or' '{left.GetType()}' and '{right.GetType()}'");
     }
 }
-
-public class ASTBinaryExprAssignment : ASTBinaryExpr
-{
-    public ASTBinaryExprAssignment(ASTNode left, ASTNode right) : base(left, right)
-    {
-    }
-    
-    public override string ToString()
-    {
-        return $"{Left} = {Right};";
-    }
-
-    public override object Evaluate(SwordEnvironment env)
-    {
-        string variableName = ((ASTIdentifier)Left).Name;
-        env.SetVariable(variableName, Right.Evaluate(env));
-        
-        return null;
-    }
-}
